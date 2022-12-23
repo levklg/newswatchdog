@@ -31,3 +31,13 @@ build/
 
 ### VS Code ###
 .vscode/
+.idea
+.mvn
+.gradle
+.idea/
+!.idea/icon*.png
+*.iml
+build/
+src/main/gen
+src/main/resources/templates.list
+src/main/resources/gitignore/*
