@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 @Controller
-@SessionAttributes("getList")
 @RequestMapping("/")
 public class UserConsoleController {
     @GetMapping({"/", "/userconsole"})
     public String doGet(Model model) {
 
+        int i = 0;
         return "userconsole";
     }
 
-    @PostMapping({"/", "/userconsole"})
-    public String doPost(@RequestParam(defaultValue = "") String clientName, @RequestParam(defaultValue = "") String clientPhone,
-                         @RequestParam(defaultValue = "") String address, @RequestParam(defaultValue = "") String buttonGetList,
-                         @RequestParam(defaultValue = "") String buttonCreateClient, Model model) {
+    @PostMapping("/userconsole")
+    public String doPost(@RequestParam(defaultValue = "") String checkrbk, @RequestParam(defaultValue = "") String checkkp40,
+                         @RequestParam(defaultValue = "") String checkkaluga24, @RequestParam(defaultValue = "") String checknikatv,
+                         @RequestParam(defaultValue = "") String inputfindstring, @RequestParam(defaultValue = "") String listfindstring, Model model) {
 
+        int i = 0;
 
-
-        return "redirect:/userconsole";
+        return "userconsole";
     }
 
 }

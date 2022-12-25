@@ -1,9 +1,12 @@
 spring:
   security:
     user:
-      name: admin
-      password: admin
-
+      name: 1
+      password: 1
+  datasource:
+    url: jdbc:postgresql://localhost:5430/demoDB
+    username: usr
+    password: pwd
 flyway:
     enabled: true
 server:
