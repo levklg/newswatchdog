@@ -9,7 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class NewswatchdogApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(NewswatchdogApplication.class, args);
+		var context = SpringApplication.run(NewswatchdogApplication.class, args);
+		context.getBean("newswatchdogapp", NewsWatchDogApp.class).action();
 	}
 
 }

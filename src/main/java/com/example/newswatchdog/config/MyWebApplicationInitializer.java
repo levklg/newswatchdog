@@ -16,6 +16,7 @@ public class MyWebApplicationInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic registration = container.addServlet("dispatcher", new DispatcherServlet(appContext));
         registration.setLoadOnStartup(1);
         registration.addMapping("/");
+        registration.addMapping("login");
         registration.addMapping("/userconsole");
     }
 }
