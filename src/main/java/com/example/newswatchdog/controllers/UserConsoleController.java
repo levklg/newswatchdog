@@ -29,14 +29,17 @@ public class UserConsoleController {
     public String doPost(@RequestParam(defaultValue = "") String checkrbk, @RequestParam(defaultValue = "") String checkkp40,
                          @RequestParam(defaultValue = "") String checkkaluga24, @RequestParam(defaultValue = "") String checknikatv,
                          @RequestParam(defaultValue = "") String inputfindstring, @RequestParam(defaultValue = "") String listfindstring,
-                         @RequestParam(defaultValue = "") String start, Model model) {
+                         @RequestParam(defaultValue = "") String start, @RequestParam(defaultValue = "") String reset, Model model) {
 
        if(!inputfindstring.equals("")){
            userRepository.getUser().getUserSetting().getListFindString().add(inputfindstring);
        }
-       userRepository.getUser().getUserSetting().setMapWebSites(checkrbk, checkkp40, checkkaluga24, checknikatv);
+     if(reset.equals("reset")){
+         userRepository.getUser().getUserSetting().getListFindString()
+                 .removeAll(userRepository.getUser().getUserSetting().getListFindString());
+     }
        if(start.equals("start")){
-
+           userRepository.getUser().getUserSetting().setMapWebSites(checkrbk, checkkp40, checkkaluga24, checknikatv);
        }
         return "redirect:/userconsole";
     }

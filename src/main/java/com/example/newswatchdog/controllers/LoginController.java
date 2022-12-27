@@ -17,7 +17,7 @@ public class LoginController {
 
     @PostMapping({"/","/login"})
     public String doPost(Model model){
-
+        int a = 0;
       return "userconsole"  ;
     }
 }

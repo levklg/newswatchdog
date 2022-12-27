@@ -1,8 +1,4 @@
 spring:
-  security:
-    user:
-      name: 1
-      password: 1
   datasource:
     url: jdbc:postgresql://localhost:5430/demoDB
     username: usr
