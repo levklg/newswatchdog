@@ -1,19 +1,13 @@
 package com.example.newswatchdog.repository;
 
-
-
 import com.example.newswatchdog.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    List<User> findAll();
-
-    void save(User user);
+   // List<User> findByUserName(String username);
 
     User findById(long id);
-
-    User findByName(String nickname);
-    User getUser();
 }

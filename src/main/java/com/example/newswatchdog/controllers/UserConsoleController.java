@@ -1,15 +1,11 @@
 package com.example.newswatchdog.controllers;
 
 import com.example.newswatchdog.model.User;
-import com.example.newswatchdog.repository.UserRepositoryImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static com.example.newswatchdog.NewsWatchDogApp.userRepository;
+//import static com.example.newswatchdog.NewsWatchDogApp.userRepository;
 
 @Controller
 @RequestMapping("/")
@@ -19,8 +15,8 @@ public class UserConsoleController {
     @GetMapping ("/userconsole")
     public String doGet(Model model) {
 
-     User user =  userRepository.getUser();
-     model.addAttribute("listString", userRepository.getUser().getUserSetting().getListFindString());
+   //  User user =  userRepository.getUser();
+   //  model.addAttribute("listString", userRepository.getUser().getUserSetting().getListFindString());
         int i = 0;
         return "userconsole";
     }
@@ -32,14 +28,14 @@ public class UserConsoleController {
                          @RequestParam(defaultValue = "") String start, @RequestParam(defaultValue = "") String reset, Model model) {
 
        if(!inputfindstring.equals("")){
-           userRepository.getUser().getUserSetting().getListFindString().add(inputfindstring);
+   //        userRepository.getUser().getUserSetting().getListFindString().add(inputfindstring);
        }
      if(reset.equals("reset")){
-         userRepository.getUser().getUserSetting().getListFindString()
-                 .removeAll(userRepository.getUser().getUserSetting().getListFindString());
+    //     userRepository.getUser().getUserSetting().getListFindString()
+    //             .removeAll(userRepository.getUser().getUserSetting().getListFindString());
      }
        if(start.equals("start")){
-           userRepository.getUser().getUserSetting().setMapWebSites(checkrbk, checkkp40, checkkaluga24, checknikatv);
+     //      userRepository.getUser().getUserSetting().setMapWebSites(checkrbk, checkkp40, checkkaluga24, checknikatv);
        }
         return "redirect:/userconsole";
     }

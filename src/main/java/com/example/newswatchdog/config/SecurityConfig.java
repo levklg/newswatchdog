@@ -1,42 +1,53 @@
 package com.example.newswatchdog.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
+
+import javax.sql.DataSource;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth)
-            throws Exception {
-        auth.inMemoryAuthentication()
-               .withUser("user").password(passwordEncoder().encode("user")).roles("USER")
-               .and()
-               .withUser("admin").password(passwordEncoder().encode("admin")).roles("USER", "ADMIN");
-    }
-
-    //@Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
- //   @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/userconsole").hasRole("ADMIN")
-                );
+                .authorizeHttpRequests((requests) -> requests
+                        .requestMatchers( "/","/userconsole").hasRole("USER")
+                        .anyRequest().authenticated()
+                )
+                .formLogin((form) -> form
+                        .loginPage("/login")
+                        .failureUrl("/login-error")
+                        .permitAll()
+                )
+                .logout((logout) -> logout.permitAll());
 
         return http.build();
     }
 
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails userDetails = User.withDefaultPasswordEncoder()
+                .username("1")
+                .password("1")
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(userDetails);
+    }
 }

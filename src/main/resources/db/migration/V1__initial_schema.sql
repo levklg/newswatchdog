@@ -1,13 +1,17 @@
 
+create table users
+(
+    id bigserial not null primary key,
+    username varchar(50),
+    password varchar(50),
+    usersetting_id bigserial
 
-create table client
-(
-    id    bigserial not null primary key,
-    name varchar(50)
 );
-create table manager
+create table usersettings
 (
-    id    bigserial not null primary key,
-    label varchar(50),
-    param1 varchar(50)
+    id bigserial not null primary key,
+    mapWebSites varchar(255),
+    listFindString varchar(255),
+    userSetting varchar(255)
+
 );
