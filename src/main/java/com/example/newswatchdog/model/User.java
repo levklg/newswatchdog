@@ -12,48 +12,77 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "password")
+    private String password;
+
+
+    @OneToOne( cascade = CascadeType.ALL,  fetch = FetchType.EAGER, orphanRemoval=true)
     @JoinColumn(name = "usersetting_id")
     private UserSetting userSetting;
 
-    private String username;
 
-    private String password;
 
     public User(){
 
     }
 
-    public User(String username, long id){
-        this.username = username;
-        this.id = id;
+
+    public User(String name, String password, UserSetting userSetting) {
+        this.name = name;
+        this.password = password;
+        this.userSetting = userSetting;
     }
 
-    public void setUserSetting(UserSetting userSetting) {
-       this.userSetting = userSetting;
+
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
     }
+
+    @Override
+    public User clone() {
+        User user = new User(this.name, this.password,  this.userSetting);
+
+        return  user;
+    }
+
+
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getUsername() {
-        return username;
+        return name;
     }
+
     public void setUsername(String username) {
-        this.username = username;
+        this.name = username;
     }
+
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
 
-   public UserSetting getUserSetting() {
-        return userSetting;
+    public UserSetting getUserSetting() {
+        return  userSetting;
 
+    }
+
+    public void setUserSetting(UserSetting userSetting) {
+        this.userSetting = userSetting;
     }
 }

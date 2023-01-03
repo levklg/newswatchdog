@@ -1,17 +1,25 @@
-
-create table users
-(
+create table users(
     id bigserial not null primary key,
-    username varchar(50),
+    name varchar(50),
     password varchar(50),
     usersetting_id bigserial
 
 );
-create table usersettings
-(
-    id bigserial not null primary key,
-    mapWebSites varchar(255),
-    listFindString varchar(255),
-    userSetting varchar(255)
 
+create table usersettings(
+    id bigserial not null primary key,
+    mapwebsites_id bigserial ,
+    listfindstring bigserial
+
+);
+
+create table user_setting_mapwebsites(
+user_setting_id bigserial,
+map_web_sites varchar(50),
+map_web_sites_key varchar(50)
+);
+
+create table user_setting_list_find_string(
+  user_setting_id bigserial not null primary key,
+  list_find_string varchar(255)
 );

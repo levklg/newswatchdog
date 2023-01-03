@@ -17,7 +17,10 @@ public class UserConsoleController {
 
    //  User user =  userRepository.getUser();
    //  model.addAttribute("listString", userRepository.getUser().getUserSetting().getListFindString());
-        int i = 0;
+       model.addAttribute("activerbk",true);
+        model.addAttribute("activekp40",false);
+        model.addAttribute("activekaluga24",false);
+        model.addAttribute("activenikatv",true);
         return "userconsole";
     }
 
@@ -25,7 +28,8 @@ public class UserConsoleController {
     public String doPost(@RequestParam(defaultValue = "") String checkrbk, @RequestParam(defaultValue = "") String checkkp40,
                          @RequestParam(defaultValue = "") String checkkaluga24, @RequestParam(defaultValue = "") String checknikatv,
                          @RequestParam(defaultValue = "") String inputfindstring, @RequestParam(defaultValue = "") String listfindstring,
-                         @RequestParam(defaultValue = "") String start, @RequestParam(defaultValue = "") String reset, Model model) {
+                         @RequestParam(defaultValue = "") String start, @RequestParam(defaultValue = "") String reset,
+                         @RequestParam(defaultValue = "") String logout, Model model) {
 
        if(!inputfindstring.equals("")){
    //        userRepository.getUser().getUserSetting().getListFindString().add(inputfindstring);
@@ -36,6 +40,10 @@ public class UserConsoleController {
      }
        if(start.equals("start")){
      //      userRepository.getUser().getUserSetting().setMapWebSites(checkrbk, checkkp40, checkkaluga24, checknikatv);
+       }
+
+       if (logout.equals("logout")){
+           return "redirect:/login";
        }
         return "redirect:/userconsole";
     }
