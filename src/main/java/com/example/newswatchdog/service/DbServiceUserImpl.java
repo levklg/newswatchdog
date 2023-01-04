@@ -33,7 +33,7 @@ public class DbServiceUserImpl implements DBServiceUser {
     public User getUser(long id) {
         var user = userRepository.findById(id);
         log.info("user: {}", user);
-        return user;
+        return user.get();
     }
 
     @Override

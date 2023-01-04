@@ -5,19 +5,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-//import static com.example.newswatchdog.NewsWatchDogApp.userRepository;
+import static com.example.newswatchdog.NewsWatchDogApp.dbServiceUser;
 
 @Controller
 @RequestMapping("/")
 public class UserConsoleController {
-
+public User user = null;
 
     @GetMapping ("/userconsole")
     public String doGet(Model model) {
 
-   //  User user =  userRepository.getUser();
-   //  model.addAttribute("listString", userRepository.getUser().getUserSetting().getListFindString());
-       model.addAttribute("activerbk",true);
+     if(user == null){
+         this.user = dbServiceUser.getUser(1);
+     }
+       model.addAttribute("listString", user.getUserSetting().getListFindString());
+        model.addAttribute("activerbk",true);
         model.addAttribute("activekp40",false);
         model.addAttribute("activekaluga24",false);
         model.addAttribute("activenikatv",true);
@@ -32,14 +34,20 @@ public class UserConsoleController {
                          @RequestParam(defaultValue = "") String logout, Model model) {
 
        if(!inputfindstring.equals("")){
-   //        userRepository.getUser().getUserSetting().getListFindString().add(inputfindstring);
+           if(this.user != null) {
+               this.user.getUserSetting().getListFindString().add(inputfindstring);
+           }
        }
      if(reset.equals("reset")){
-    //     userRepository.getUser().getUserSetting().getListFindString()
-    //             .removeAll(userRepository.getUser().getUserSetting().getListFindString());
+         if(this.user != null) {
+             this.user.getUserSetting().getListFindString()
+                     .removeAll(user.getUserSetting().getListFindString());
+         }
      }
        if(start.equals("start")){
-     //      userRepository.getUser().getUserSetting().setMapWebSites(checkrbk, checkkp40, checkkaluga24, checknikatv);
+           if(this.user != null) {
+               this.user.getUserSetting().setMapWebSites(checkrbk, checkkp40, checkkaluga24, checknikatv);
+           }
        }
 
        if (logout.equals("logout")){

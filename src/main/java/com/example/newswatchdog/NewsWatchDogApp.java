@@ -1,7 +1,7 @@
 package com.example.newswatchdog;
 
 import com.example.newswatchdog.model.User;
-import com.example.newswatchdog.model.UserSetting;
+import com.example.newswatchdog.repository.UserRepository;
 import com.example.newswatchdog.service.DBServiceUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -12,20 +12,22 @@ import java.util.List;
 @SessionAttributes(value = "user")
 public class NewsWatchDogApp {
 
+    public static UserRepository userRepository = null;
+    public static DBServiceUser dbServiceUser;
 
-    private final DBServiceUser dbServiceUser;
-
-    public NewsWatchDogApp( DBServiceUser dbServiceUser) {
+    public NewsWatchDogApp(UserRepository userRepository, DBServiceUser dbServiceUser) {
+        this.userRepository = userRepository;
 
         this.dbServiceUser = dbServiceUser;
     }
 
     public void action() {
-  /*
-        User user = new User("Lev", "admin", new UserSetting());
-        dbServiceUser.saveUser(user);
+   //        String s = new BCryptPasswordEncoder().encode("admin");
+    //   System.out.println(s);
+ //     User user = new User("Lev", s, new UserSetting());
+  //     dbServiceUser.saveUser(user);
 
-    */
+
      User usertest =  dbServiceUser.getUser(1);
 
         List<String> list = usertest.getUserSetting().getListFindString();

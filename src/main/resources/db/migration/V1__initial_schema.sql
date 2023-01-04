@@ -1,7 +1,7 @@
 create table users(
     id bigserial not null primary key,
     name varchar(50),
-    password varchar(50),
+    password varchar(255),
     usersetting_id bigserial
 
 );
@@ -23,3 +23,6 @@ create table user_setting_list_find_string(
   user_setting_id bigserial not null primary key,
   list_find_string varchar(255)
 );
+
+
+

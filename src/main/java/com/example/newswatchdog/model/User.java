@@ -14,7 +14,7 @@ public class User {
 
 
     @Column(name = "name")
-    private String name;
+    private String userName;
 
     @Column(name = "password")
     private String password;
@@ -32,7 +32,7 @@ public class User {
 
 
     public User(String name, String password, UserSetting userSetting) {
-        this.name = name;
+        this.userName = name;
         this.password = password;
         this.userSetting = userSetting;
     }
@@ -40,13 +40,13 @@ public class User {
 
 
     public User(String name, String password) {
-        this.name = name;
+        this.userName = name;
         this.password = password;
     }
 
     @Override
     public User clone() {
-        User user = new User(this.name, this.password,  this.userSetting);
+        User user = new User(this.userName, this.password,  this.userSetting);
 
         return  user;
     }
@@ -61,12 +61,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return name;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.name = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
