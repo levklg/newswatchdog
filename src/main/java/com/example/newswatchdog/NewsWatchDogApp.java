@@ -27,11 +27,11 @@ public class NewsWatchDogApp {
  //     User user = new User("Lev", s, new UserSetting());
   //     dbServiceUser.saveUser(user);
 
-
-     User usertest =  dbServiceUser.getUser(1);
+ /*
+     User usertest =  dbServiceUser.getUser(3);
 
         List<String> list = usertest.getUserSetting().getListFindString();
-        System.out.println(list.size());
+
         for(var s : list){
             System.out.println(s);
         }
@@ -42,7 +42,11 @@ public class NewsWatchDogApp {
             System.out.println(key);
         }
 
+
+ */
     }
+
+
 
 
 }

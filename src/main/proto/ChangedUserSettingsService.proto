@@ -1,0 +1,16 @@
+syntax = "proto3";
+package com.example.grpc;
+option java_multiple_files = true;
+
+message UserName{
+  string userName = 1;
+}
+
+message Empty {}
+
+service ChangedUserSettingsService {
+
+  rpc changedUserSettings(UserName) returns (Empty);
+
+
+}

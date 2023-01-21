@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -22,6 +23,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 import javax.sql.DataSource;
@@ -31,7 +34,53 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-    @Autowired
+
+
+
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+
+           http
+                .authorizeHttpRequests((requests) -> requests
+
+                        .requestMatchers("/index").permitAll()
+                        .requestMatchers("/img/**").permitAll()
+                        .requestMatchers( "/login").permitAll()
+                        .requestMatchers(  "/","/userconsole").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                )
+                .formLogin((form) -> form
+                        .loginPage("/index")
+                        .loginProcessingUrl("/login")
+
+                     //  .defaultSuccessUrl("/userconsole")
+                )
+                .logout((logout) -> logout.permitAll());
+
+        return http.build();
+
+
+
+
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user =
+                User.withDefaultPasswordEncoder()
+                        .username("1")
+                        .password("1")
+                        .roles("ADMIN")
+                        .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+ }
+
+ /*
+  @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -40,19 +89,25 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+
+  @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers( "/","/userconsole").hasRole("ADMIN")
                         .anyRequest().authenticated()
+
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
+                       .loginPage("/login")
                         .failureUrl("/login-error")
                         .permitAll()
-                )
+
+               )
                 .logout((logout) -> logout.permitAll());
+
+
 
         return http.build();
     }
@@ -63,6 +118,9 @@ public class SecurityConfig {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
+       return authenticationProvider;
     }
+
+
 }
+*/

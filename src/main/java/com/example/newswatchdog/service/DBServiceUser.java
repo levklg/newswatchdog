@@ -15,4 +15,5 @@ public interface DBServiceUser {
     User getUser(long id);
 
     List<User> findAll();
+    Optional<User> findByUserName(String name);
 }

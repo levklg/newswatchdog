@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DbServiceUserImpl implements DBServiceUser {
@@ -42,6 +43,13 @@ public class DbServiceUserImpl implements DBServiceUser {
         userRepository.findAll().forEach(userList::add);
         log.info("clientList:{}", userList);
         return userList;
+    }
+
+    @Override
+    public Optional<User> findByUserName(String name) {
+        var user = userRepository.findByUserName(name);
+        log.info("user: {}", user);
+        return user;
     }
 
     @Override

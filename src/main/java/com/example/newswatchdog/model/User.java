@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
 
@@ -18,6 +18,9 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "telegram_id")
+    private long telegramID;
 
 
     @OneToOne( cascade = CascadeType.ALL,  fetch = FetchType.EAGER, orphanRemoval=true)
