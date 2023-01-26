@@ -22,6 +22,7 @@ public class NewsWatchDogApp {
     }
 
     public void action() {
+
    //        String s = new BCryptPasswordEncoder().encode("admin");
     //   System.out.println(s);
  //     User user = new User("Lev", s, new UserSetting());

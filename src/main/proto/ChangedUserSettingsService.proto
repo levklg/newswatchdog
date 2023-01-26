@@ -10,7 +10,7 @@ message Empty {}
 
 service ChangedUserSettingsService {
 
-  rpc changedUserSettings(UserName) returns (Empty);
-
+  rpc sendChangedUserSettings(UserName) returns (Empty);
+  rpc reciveChangedUserSettings(Empty) returns (UserName);
 
 }

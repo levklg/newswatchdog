@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -36,11 +38,29 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
 
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    @Bean
+    public static PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setPasswordEncoder(passwordEncoder());
+        return authenticationProvider;
+    }
+
 
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
 
            http
                 .authorizeHttpRequests((requests) -> requests
@@ -54,43 +74,26 @@ public class SecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/index")
                         .loginProcessingUrl("/login")
-
-                     //  .defaultSuccessUrl("/userconsole")
+                       //  .defaultSuccessUrl("/userconsole")
                 )
-                .logout((logout) -> logout.permitAll());
+                   .logout((logout) -> logout.permitAll());
+               //    .sessionManagement()
+               //   .invalidSessionUrl("/index")
+               //    .maximumSessions(1)
+              //     .maxSessionsPreventsLogin(true)
+              //     .sessionRegistry(sessionRegistry());
+
 
         return http.build();
 
-
-
-
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("1")
-                        .password("1")
-                        .roles("ADMIN")
-                        .build();
-
-        return new InMemoryUserDetailsManager(user);
+    @Bean(name = "sessionRegistry")
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
     }
- }
-
- /*
-  @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
-    @Bean
-    public static PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
-
-  @Bean
+    /*
+     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
@@ -114,13 +117,18 @@ public class SecurityConfig {
 
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-       authenticationProvider.setPasswordEncoder(passwordEncoder());
-       return authenticationProvider;
+    public UserDetailsService userDetailsService() {
+        UserDetails user =
+                User.withDefaultPasswordEncoder()
+                        .username("1")
+                        .password("1")
+                        .roles("ADMIN")
+                        .build();
+
+        return new InMemoryUserDetailsManager(user);
     }
+
+     */
 
 
 }
-*/

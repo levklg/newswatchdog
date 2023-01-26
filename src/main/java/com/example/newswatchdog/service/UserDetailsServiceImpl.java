@@ -15,10 +15,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-//@Service
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-  //  @Autowired
+    @Autowired
     private UserRepository userRepository;
 
     @Override

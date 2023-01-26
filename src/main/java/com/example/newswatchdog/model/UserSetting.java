@@ -18,28 +18,33 @@ public class UserSetting {
 
 
     @ElementCollection(fetch = FetchType.LAZY )
-    @CollectionTable(name = "user_setting_list_find_string", joinColumns = @JoinColumn(name = "user_setting_id"))
+    @CollectionTable(name = "user_setting_mapwebsites" , joinColumns = @JoinColumn(name = "user_setting_id"))
     @MapKeyColumn(name = "map_web_sites_key")
     @Column(name = "map_web_sites")
     private   Map<String, String> mapWebSites = new HashMap<>();
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "user_setting_mapwebsites", joinColumns = @JoinColumn(name = "user_setting_id"))
+    @CollectionTable(name = "user_setting_list_find_string", joinColumns = @JoinColumn(name = "user_setting_id"))
     @Column( name = "list_find_string" )
     private List<String> listFindString = new ArrayList<>();
+
+    @Column(name = "allnews")
+    private boolean allnews ;
 
 
     public UserSetting() {
         mapWebSites.put("rbc","");
         mapWebSites.put("kp40","");
-       mapWebSites.put("nikatv","");
+        mapWebSites.put("nikatv","");
         mapWebSites.put("znamkaluga","");
         mapWebSites.put("kaluga-poisk","");
+        allnews = false;
     }
 
-    public UserSetting(List<String> listFindString, Map<String, String> mapWebSites ){
+    public UserSetting(List<String> listFindString, Map<String, String> mapWebSites, boolean allnews ){
         this.listFindString = listFindString;
         this.mapWebSites = mapWebSites;
+        this.allnews = allnews;
 
     }
 
@@ -67,9 +72,16 @@ public class UserSetting {
         return id;
     }
 
-    public UserSetting clone() {
-        UserSetting userSetting = new UserSetting(this.listFindString, this.mapWebSites);
+    public boolean isAllnews(){
+        return  this.allnews;
+    }
 
+    public  void setAllnews(boolean allnews){
+        this.allnews = allnews;
+    }
+
+    public UserSetting clone() {
+        UserSetting userSetting = new UserSetting(this.listFindString, this.mapWebSites, this.allnews);
         return  userSetting;
     }
 }
