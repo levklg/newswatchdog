@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
     @GetMapping( "/index")
     public String indexGet(Model model, String error, String login) {
-
         return "index";
     }
-
-
 
 }

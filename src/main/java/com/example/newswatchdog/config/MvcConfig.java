@@ -24,8 +24,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController( "/userconsole").setViewName("userconsole");
         registry.addRedirectViewController("/", "/");
 
-
-
     }
 
     @Override

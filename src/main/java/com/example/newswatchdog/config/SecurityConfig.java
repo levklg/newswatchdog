@@ -37,7 +37,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @EnableWebSecurity
 public class SecurityConfig {
 
-
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -47,8 +46,6 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-
-
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
@@ -56,8 +53,6 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
-
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -82,7 +77,6 @@ public class SecurityConfig {
                //    .maximumSessions(1)
               //     .maxSessionsPreventsLogin(true)
               //     .sessionRegistry(sessionRegistry());
-
 
         return http.build();
 
@@ -129,6 +123,5 @@ public class SecurityConfig {
     }
 
      */
-
 
 }

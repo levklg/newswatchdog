@@ -10,10 +10,7 @@ import java.util.Optional;
 
 public interface DBServiceUser {
 
-    User saveUser(User user);
+    void updateUser( User user);
 
-    User getUser(long id);
-
-    List<User> findAll();
-    Optional<User> findByUserName(String name);
+    User findByUserName(String name);
 }

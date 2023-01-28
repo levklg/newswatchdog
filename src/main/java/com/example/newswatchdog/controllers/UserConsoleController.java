@@ -16,17 +16,19 @@ import static com.example.newswatchdog.NewsWatchDogApp.dbServiceUser;
 
 @Controller
 public class UserConsoleController {
-  //  public User user = null;
+
 
     @GetMapping("/")
     public String doGet(@ModelAttribute User user, HttpSession session, Model model) {
 
-      //  if (user == null) {
+    //    if (user.getUserName() == null) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
-            user = dbServiceUser.findByUserName(currentPrincipalName).get();
+            user = dbServiceUser.findByUserName(currentPrincipalName);
+
             session.setAttribute("user", user);
-    //    }
+
+   //    }
         initializationUserSettings(user, model);
 
        return "userconsole";
@@ -61,20 +63,18 @@ public class UserConsoleController {
                 user.getUserSetting().setMapWebSites(checkrbk, checkkp40,checknikatv , checkznamkaluga,checkkalugapoisk );
                 if (checkAllNews.equals("allnews")) {
                     user.getUserSetting().setAllnews(true);
+                }else{
+                    user.getUserSetting().setAllnews(false);
                 }
 
             }
-            dbServiceUser.saveUser(user);
+            System.out.println("update " + user.getUserSetting().isAllnews());
+           dbServiceUser.updateUser(user);
         }
 
         if (logout.equals("logout")) {
             status.setComplete();
             session.removeAttribute("user");
-         //   session.removeAttribute("activecheckznamkaluga");
-        ///    session.removeAttribute("activerbk");
-        //    session.removeAttribute("activekp40");
-         //   session.removeAttribute("activenikatv");
-         //   session.removeAttribute("activekalugapoisk");
 
             return "redirect:/index";
         }
@@ -131,12 +131,12 @@ public class UserConsoleController {
                 }
             }
 
-
-            if (user.getUserSetting().isAllnews()) {
-                model.addAttribute("activallnews", true);
-            } else {
-                model.addAttribute("activallnews", false);
-            }
+        }
+        System.out.println(user.getUserSetting().isAllnews());
+        if (user.getUserSetting().isAllnews()) {
+            model.addAttribute("activallnews", true);
+        } else {
+            model.addAttribute("activallnews", false);
         }
 
     }
