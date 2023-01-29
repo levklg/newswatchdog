@@ -12,15 +12,13 @@ import org.springframework.stereotype.Service;
 public class DbServiceUserImpl implements DBServiceUser {
     private static final Logger log = LoggerFactory.getLogger(DbServiceUserImpl.class);
 
-
     @Autowired
     NettyClient nettyClient;
 
-    public DbServiceUserImpl( NettyClient nettyClient) {
+    public DbServiceUserImpl(NettyClient nettyClient) {
 
         this.nettyClient = nettyClient;
     }
-
 
     @Override
     public void updateUser(User user) {
@@ -34,7 +32,10 @@ public class DbServiceUserImpl implements DBServiceUser {
         return user;
     }
 
-
+    @Override
+    public void close() {
+        nettyClient.close();
+    }
 
 
 }

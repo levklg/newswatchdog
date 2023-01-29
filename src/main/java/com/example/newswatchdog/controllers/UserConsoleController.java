@@ -16,26 +16,22 @@ import static com.example.newswatchdog.NewsWatchDogApp.dbServiceUser;
 
 @Controller
 public class UserConsoleController {
-
+    private User user;
 
     @GetMapping("/")
-    public String doGet(@ModelAttribute User user, HttpSession session, Model model) {
+    public String doGet(HttpSession session, Model model) {
 
-    //    if (user.getUserName() == null) {
+        if (user == null) {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String currentPrincipalName = authentication.getName();
             user = dbServiceUser.findByUserName(currentPrincipalName);
-
-            session.setAttribute("user", user);
-
-   //    }
+        }
         initializationUserSettings(user, model);
-
-       return "userconsole";
+        return "userconsole";
     }
 
     @PostMapping("/userconsole")
-    public String doPost(@ModelAttribute User user, HttpSession session, SessionStatus status,
+    public String doPost(HttpSession session, SessionStatus status,
                          @RequestParam(defaultValue = "") String checkrbk, @RequestParam(defaultValue = "") String checkkp40,
                          @RequestParam(defaultValue = "") String checkkalugapoisk, @RequestParam(defaultValue = "") String checknikatv,
                          @RequestParam(defaultValue = "") String checkznamkaluga,
@@ -43,45 +39,41 @@ public class UserConsoleController {
                          @RequestParam(defaultValue = "") String start, @RequestParam(defaultValue = "") String reset,
                          @RequestParam(defaultValue = "") String logout, @RequestParam(defaultValue = "") String checkAllNews, Model model) {
 
-        user = (User) session.getAttribute("user");
-        List<String> listInputFindString =  new ArrayList<>();
+        List<String> listInputFindString = new ArrayList<>();
         if (!inputfindstring.equals("")) {
             if (user != null) {
                 listInputFindString.add(inputfindstring);
-                user.getUserSetting().getListFindString().addAll(listInputFindString);
-                model.addAttribute("listString",listInputFindString);
+                this.user.getUserSetting().getListFindString().addAll(listInputFindString);
+                model.addAttribute("listString", listInputFindString);
             }
         }
         if (reset.equals("reset")) {
             if (user != null) {
                 user.getUserSetting().getListFindString()
                         .removeAll(user.getUserSetting().getListFindString());
+
             }
         }
         if (start.equals("start")) {
             if (user != null) {
-                user.getUserSetting().setMapWebSites(checkrbk, checkkp40,checknikatv , checkznamkaluga,checkkalugapoisk );
+                user.getUserSetting().setMapWebSites(checkrbk, checkkp40, checknikatv, checkznamkaluga, checkkalugapoisk);
                 if (checkAllNews.equals("allnews")) {
-                    user.getUserSetting().setAllnews(true);
-                }else{
-                    user.getUserSetting().setAllnews(false);
+                    user.getUserSetting().setAllnews("1");
+                } else {
+                    user.getUserSetting().setAllnews("");
                 }
 
             }
-            System.out.println("update " + user.getUserSetting().isAllnews());
-           dbServiceUser.updateUser(user);
+            dbServiceUser.updateUser(user);
         }
 
         if (logout.equals("logout")) {
             status.setComplete();
-            session.removeAttribute("user");
-
+            this.user = null;
             return "redirect:/index";
         }
-
         return "redirect:/";
     }
-
 
     public void initializationUserSettings(User user, Model model) {
         model.addAttribute("listString", user.getUserSetting().getListFindString());
@@ -132,8 +124,8 @@ public class UserConsoleController {
             }
 
         }
-        System.out.println(user.getUserSetting().isAllnews());
-        if (user.getUserSetting().isAllnews()) {
+
+        if (user.getUserSetting().getAllnews().equals("1")) {
             model.addAttribute("activallnews", true);
         } else {
             model.addAttribute("activallnews", false);

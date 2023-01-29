@@ -65,7 +65,6 @@ public class NettyClient {
 
     }
 
-
     public User findByUserName(String userName) {
 
         StringBuilder stringBuilder = new StringBuilder();
@@ -89,20 +88,20 @@ public class NettyClient {
     }
 
     public void sendMessageToServer(String str) {
-
         if (socketChannel != null) {
             socketChannel.writeAndFlush(str);
-
         }
     }
 
     public boolean isConnect() {
-
         if (socketChannel != null) {
             return socketChannel.isActive();
         } else {
             return false;
         }
+    }
 
+    public void close(){
+        socketChannel.close();
     }
 }

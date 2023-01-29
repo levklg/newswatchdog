@@ -12,18 +12,16 @@ public class NewsWatchDogApp {
 
 
     public static DBServiceUser dbServiceUser;
-  //  @Autowired
+
     public static NettyClient nettyClient;
 
     public NewsWatchDogApp(DBServiceUser dbServiceUser, NettyClient nettyClient) {
 
         this.nettyClient = nettyClient;
         this.dbServiceUser = dbServiceUser;
-
     }
 
     public void action() {
-
 
         nettyClient = new NettyClient();
         while (true) {
@@ -39,31 +37,9 @@ public class NewsWatchDogApp {
             if (nettyClient.isConnect()) {
                 break;
             }
-
         }
         DBServiceUser dbServiceUser = new DbServiceUserImpl(nettyClient);
-        //        String s = new BCryptPasswordEncoder().encode("admin");
-        //   System.out.println(s);
-        // User user = new User("Lev", s, new UserSetting());
-        //     dbServiceUser.saveUser(user);
 
- /*
-     User usertest =  dbServiceUser.getUser(3);
-
-        List<String> list = usertest.getUserSetting().getListFindString();
-
-        for(var s : list){
-            System.out.println(s);
-        }
-
-
-        var map = usertest.getUserSetting().getMapWebSites();
-        for (String key : map.keySet()) {
-            System.out.println(key);
-        }
-
-
- */
     }
 
 

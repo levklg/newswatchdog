@@ -17,16 +17,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private DbServiceUserImpl dbServiceUser;
-  //  private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-         List<GrantedAuthority> authorities = new ArrayList<>();
-         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-         User user = dbServiceUser.findByUserName(username);
-              //  .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
-
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),authorities);
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        User user = dbServiceUser.findByUserName(username);
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);
     }
 
 }

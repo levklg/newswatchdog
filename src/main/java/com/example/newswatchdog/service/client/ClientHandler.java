@@ -13,7 +13,6 @@ public class ClientHandler extends SimpleChannelInboundHandler<String> {
     BlockingQueue blockingQueue;
     private User user;
 
-
     public ClientHandler(BlockingQueue blockingQueue) {
         this.blockingQueue = blockingQueue;
     }
@@ -39,7 +38,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<String> {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-        System.out.println("Error");
+        System.out.println("Server disconnect");
         ctx.close();
     }
 
