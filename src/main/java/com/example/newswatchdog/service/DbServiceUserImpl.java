@@ -1,6 +1,5 @@
 package com.example.newswatchdog.service;
 
-
 import com.example.newswatchdog.service.client.NettyClient;
 import com.example.newswatchdog.model.User;
 import org.slf4j.Logger;

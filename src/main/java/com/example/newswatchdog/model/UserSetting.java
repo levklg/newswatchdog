@@ -1,32 +1,17 @@
 package com.example.newswatchdog.model;
 
-import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Entity
-@Table(name = "usersettings")
+
 public class UserSetting {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @ElementCollection(fetch = FetchType.LAZY )
-    @CollectionTable(name = "user_setting_mapwebsites" , joinColumns = @JoinColumn(name = "user_setting_id"))
-    @MapKeyColumn(name = "map_web_sites_key")
-    @Column(name = "map_web_sites")
     private   Map<String, String> mapWebSites = new HashMap<>();
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "user_setting_list_find_string", joinColumns = @JoinColumn(name = "user_setting_id"))
-    @Column( name = "list_find_string" )
     private List<String> listFindString = new ArrayList<>();
-
-    @Column(name = "allnews")
     private String allnews ;
 
     public UserSetting() {

@@ -1,13 +1,10 @@
 package com.example.newswatchdog.service.client;
 
-
 import com.example.newswatchdog.model.User;
 import com.google.gson.Gson;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
 import java.util.concurrent.BlockingQueue;
-
 
 public class ClientHandler extends SimpleChannelInboundHandler<String> {
     BlockingQueue blockingQueue;

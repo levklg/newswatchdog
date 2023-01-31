@@ -1,28 +1,12 @@
 package com.example.newswatchdog.model;
 
 
-import jakarta.persistence.*;
-
-
-@Entity
-@Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "name")
     private String userName;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "telegram_id")
     private long telegramID;
-
-    @OneToOne( cascade = CascadeType.ALL,  fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinColumn(name = "usersetting_id")
     private UserSetting userSetting;
 
     public User(){

@@ -1,28 +1,4 @@
-spring:
-   datasource:
-    url: jdbc:postgresql://localhost:5430/demoDB
-    username: usr
-    password: pwd
-flyway:
-  enabled: false
-  validate-on-migrate: false
 server:
-  port: 8078
+  port: 8223
 
-  # JPA properties
-  jpa:
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        enable_lazy_load_no_trans: true
-        naming:
-          physical-strategy: com.goodt.drive.orgstructure.application.utils.SnakePhysicalNamingStrategy
-    hibernate:
-      ddl-auto: none
-    database-platform: org.hibernate.dialect.PostgreSQL10Dialect
-
-logging:
-  level:
-    org.springframework.jdbc.core.JdbcTemplate: TRACE
 

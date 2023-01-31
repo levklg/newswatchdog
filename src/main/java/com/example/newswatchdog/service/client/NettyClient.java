@@ -1,6 +1,5 @@
 package com.example.newswatchdog.service.client;
 
-
 import com.example.newswatchdog.model.User;
 import com.google.gson.Gson;
 import io.netty.bootstrap.Bootstrap;
@@ -13,7 +12,6 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
