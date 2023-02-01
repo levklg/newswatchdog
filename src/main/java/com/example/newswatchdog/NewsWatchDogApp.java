@@ -1,46 +1,44 @@
 package com.example.newswatchdog;
 
-import com.example.newswatchdog.model.User;
-import com.example.newswatchdog.repository.UserRepository;
+import com.example.newswatchdog.service.client.NettyClient;
 import com.example.newswatchdog.service.DBServiceUser;
+import com.example.newswatchdog.service.DbServiceUserImpl;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.SessionAttributes;
-
-import java.util.List;
 
 @Component("newswatchdogapp")
 @SessionAttributes(value = "user")
 public class NewsWatchDogApp {
 
-    public static UserRepository userRepository = null;
+
     public static DBServiceUser dbServiceUser;
 
-    public NewsWatchDogApp(UserRepository userRepository, DBServiceUser dbServiceUser) {
-        this.userRepository = userRepository;
+    public static NettyClient nettyClient;
 
+    public NewsWatchDogApp(DBServiceUser dbServiceUser, NettyClient nettyClient) {
+
+        this.nettyClient = nettyClient;
         this.dbServiceUser = dbServiceUser;
     }
 
     public void action() {
-   //        String s = new BCryptPasswordEncoder().encode("admin");
-    //   System.out.println(s);
- //     User user = new User("Lev", s, new UserSetting());
-  //     dbServiceUser.saveUser(user);
 
+        nettyClient = new NettyClient();
+        while (true) {
 
-     User usertest =  dbServiceUser.getUser(1);
+            if (!nettyClient.isConnect()) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
-        List<String> list = usertest.getUserSetting().getListFindString();
-        System.out.println(list.size());
-        for(var s : list){
-            System.out.println(s);
+            if (nettyClient.isConnect()) {
+                break;
+            }
         }
-
-
-        var map = usertest.getUserSetting().getMapWebSites();
-        for (String key : map.keySet()) {
-            System.out.println(key);
-        }
+        DBServiceUser dbServiceUser = new DbServiceUserImpl(nettyClient);
 
     }
 

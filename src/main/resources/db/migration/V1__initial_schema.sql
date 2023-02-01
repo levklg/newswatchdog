@@ -1,7 +1,10 @@
+
+create sequence hibernate_sequence start with 1 increment by 1;
 create table users(
     id bigserial not null primary key,
     name varchar(50),
     password varchar(255),
+    telegram_id bigserial,
     usersetting_id bigserial
 
 );

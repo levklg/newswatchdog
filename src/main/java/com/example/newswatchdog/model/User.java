@@ -1,43 +1,23 @@
 package com.example.newswatchdog.model;
 
 
-import jakarta.persistence.*;
-
-
-@Entity
-@Table(name = "users")
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-
-    @Column(name = "name")
     private String userName;
-
-    @Column(name = "password")
     private String password;
-
-
-    @OneToOne( cascade = CascadeType.ALL,  fetch = FetchType.EAGER, orphanRemoval=true)
-    @JoinColumn(name = "usersetting_id")
+    private long telegramID;
     private UserSetting userSetting;
-
-
 
     public User(){
 
     }
-
 
     public User(String name, String password, UserSetting userSetting) {
         this.userName = name;
         this.password = password;
         this.userSetting = userSetting;
     }
-
-
 
     public User(String name, String password) {
         this.userName = name;
@@ -50,8 +30,6 @@ public class User {
 
         return  user;
     }
-
-
 
     public Long getId() {
         return id;
